@@ -8,28 +8,66 @@
 	"item": [
 		{
 			"name": "Get Planets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"\tpm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"\tpm.expect(pm.response.text()).to.include(\"Yavin IV\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "https://swapi.dev/api/planets/"
+				"url": "{{url}}planets/"
 			},
 			"response": []
 		},
 		{
 			"name": "Get Search Hoth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"\tpm.expect(pm.response.text()).to.include(\"Hoth\");",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"\tpm.expect(pm.response.text()).to.include(\"Hoth1\");",
+							"});",
+							"pm.test(\"Climate status check\", function () {",
+							"\tvar jsonData = pm.response.json();",
+							"pm.expect(jsonData[0].climate).to.eql(\"frozen\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://swapi.dev/api/planets/?search=Hoth",
-					"protocol": "https",
+					"raw": "{{url}}planets/?search=Hoth",
 					"host": [
-						"swapi",
-						"dev"
+						"{{url}}planets"
 					],
 					"path": [
-						"api",
-						"planets",
 						""
 					],
 					"query": [
@@ -44,19 +82,28 @@
 		},
 		{
 			"name": "Get Wookiee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://swapi.dev/api//planets/?format=wookiee",
-					"protocol": "https",
+					"raw": "{{url}}/planets/?format=wookiee",
 					"host": [
-						"swapi",
-						"dev"
+						"{{url}}"
 					],
 					"path": [
-						"api",
-						"",
 						"planets",
 						""
 					],
@@ -69,15 +116,12 @@
 				}
 			},
 			"response": []
-		},
+		}
+	],
+	"variable": [
 		{
-			"name": "Get JSON Schema",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "https://swapi.dev/api//planets//planets/schema/"
-			},
-			"response": []
+			"key": "url",
+			"value": "https://swapi.dev/api/"
 		}
 	]
 }
