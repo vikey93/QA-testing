@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "516e2aef-5ac4-4f10-ba34-dd210af4c7de",
+		"name": "Test SWapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26345473"
+	},
+	"item": [
+		{
+			"name": "Get Planets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://swapi.dev/api/planets/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Search Hoth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api/planets/?search=Hoth",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						"planets",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "Hoth"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Wookiee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://swapi.dev/api//planets/?format=wookiee",
+					"protocol": "https",
+					"host": [
+						"swapi",
+						"dev"
+					],
+					"path": [
+						"api",
+						"",
+						"planets",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "wookiee"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get JSON Schema",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://swapi.dev/api//planets//planets/schema/"
+			},
+			"response": []
+		}
+	]
+}
