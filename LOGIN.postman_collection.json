@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "2e420563-ff78-4393-8e4f-e55db271b6db",
+		"name": "LOGIN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26345473",
+		"_collection_link": "https://www.postman.com/vi-key93/workspace/hezzl/collection/26345473-2e420563-ff78-4393-8e4f-e55db271b6db?action=share&source=collection_link&creator=26345473"
+	},
+	"item": [
+		{
+			"name": "CheckLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. Проверка статуса 200",
+							"pm.test(\"Server returns status 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 2. Запись в переменную accessToken значения параметра accessToken из ответа",
+							"pm.test(\"Save accessToken to environment variable\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"accessToken\", jsonData.accessToken);",
+							"});",
+							"",
+							"// 3. Проверка скорости ответа от сервера. Ожидаем менее 200ms",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api-prod.hezzl.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "authorization",
+						"value": ""
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://play.hezzl.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://play.hezzl.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{email}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/v1/game/{{campaignId}}/check-login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"v1",
+						"game",
+						"{{campaignId}}",
+						"check-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConfirmCode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. Проверка статуса 200",
+							"pm.test(\"Server returns status 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 2. Проверка скорости ответа от сервера. Ожидаем менее 200ms",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api-prod.hezzl.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJSU0ExXzUiLCJjdHkiOiJKV1QiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiemlwIjoiREVGIn0.sO8QgA1F30GlXu4Ku7OJu9_-4Hei9RPjbnC7FlNbEKNXRQcs4Wzu3dnANk7OTm420UV9W4dzrd4nnpkZDwEdQVPC8QdrR9KxFC7Nr5h4Z6p2YmnDhaM06xNXxQ__mNwYRDssAnRHwrWgIyYgtgeeknxaW_hR7FswcaPU8WDdeuYk5eco5WQWrUp_q4zNZBsi2JAXzPJcHFmT80fLz7y7OAxNXGdI4f24HRHnTNsvrgX30_xTn0n0E5xHp-As_qIrc0rDIV0fr7xf7DHYDn0O1x9OuHpdojjp0e4q_kCd75NY-FWVJoGYoATg_vOQZoKj4bDLsRLUiqPosmkefCfrSQ.pL509X3StBHxmjGhInuGwg.9YtVpqnpBzylKKZT_9rxQSz2Gpqnsp7J4TN2WS1ZZz-VmoyjIpxuB47hyt7HR_cXtDbgLQwksrOaxVsc-XgEvl1peA8DllDoz_ZPaYZuwu7kKIxZOfDtMM9a5E7ghIERDeGP7LmH9zlSTRQZw4pOeEcWOVYtrFC5t-cVCKGXigJX1Zd3a4H5NKtHZG7KEHA4kMDoj669BV-tvGqR_wlkkeukIygwP8Jn3VzoyDFJkSM5Q9OICSKtEeAIj67tQQJQP4deSadhdIQylpxb53ugINDVPsiXPiZviD0xNLj13o9FutGS6i12rmLgDT-SSo0Htcl5FFecxEWJvJeoT_CaV6Jvo4VEZcMsYEY3oZj7N-H16xUyujWPvIloNo33rTfQbjKv8GLDs1tNE9Yapwo2PA.zT_-DGcy70r_n_wr0S4dqQ"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://play.hezzl.com"
+					},
+					{
+						"key": "referer",
+						"value": "https://play.hezzl.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Not A(Brand\";v=\"99\", \"Google Chrome\";v=\"121\", \"Chromium\";v=\"121\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth/v1/game/{{campaignId}}/confirm-code",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth",
+						"v1",
+						"game",
+						"{{campaignId}}",
+						"confirm-code"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
